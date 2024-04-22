@@ -1,0 +1,35 @@
+<div class="sidebar" [ngClass]="{ 'showSidebar': isSidebarVisible, 'hideSidebar': !isSidebarVisible }" [@fadeInOut]>
+    <ul>
+      <li>
+        <a routerLinkActive="active" (click)="toggleSubmenu()">
+
+          <span class="menu-text">Stage</span>
+          <span class="sub-menu-icon" [ngClass]="{ 'sub-menu-open': isSubmenuOpen }">
+            <mat-icon>{{ isSubmenuOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_right' }}</mat-icon>
+          </span>
+        </a>
+        <!-- Sub-menu for Dashboard with left padding -->
+        <ul *ngIf="isSubmenuOpen" class="sub-menu">
+          <li><a   [class.active]="PFEselected" (click)="selectPFE()"><span class="menu-text">Pfe</span></a></li>
+          <li><a  [class.active]="ETEselected" (click)="selectETE()"><span class="menu-text">Stage d'été</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <input type="text"
+        id="specialite"
+        placeholder="specialite"
+        >
+      </li>
+      <li>
+        <input type="text"
+        id="duree"
+        placeholder="duree"
+        >
+      </li>
+      <li>
+        <button >Filtrer</button>
+      </li>
+      
+    </ul>
+  </div>
+

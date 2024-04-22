@@ -1,0 +1,21 @@
+<div id="card" class="card">
+    <div class="content">
+        <div class="text-content">
+            <p id="nom" class="title">{{ info?.nom }}</p>
+            <p id="title" style="color: white;" >{{ info?.title }}</p>
+            <div>
+                <p class="expired"> {{ info?.expired }}</p>
+            </div>
+            
+            <div class="action-buttons">
+                    <img src="../../../assets/eye-icon.png" class="icon" alt="View"/>
+            </div>
+        </div>
+        <div class="image-container">
+            <img [src]="info?.img" class="width:90" alt="View"/>
+        </div>
+    </div>
+    <div class="delete-button">
+            <img [src]="isFavorite ? '../../../assets/icone-etoile-pleine.png' : '../../../assets/icone-etoile-vide.png'" (click)="toggleFavorite()" class="icon2" alt="favorite"/>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class=" mt-5">
+    <div class="cont" [class.s--signup]="isSignUp">
+        <div class="form sign-in">
+            <h2>Welcome</h2>
+        <form [formGroup]="authForm" (ngSubmit)="onSignIn()">
+            <label>
+                <span>Email</span>
+                <input type="email" id="signInEmail" formControlName="signInEmail" />
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" id="signInPassword" formControlName="signInPassword" />
+            </label>
+            <div *ngIf="msg" class="text-danger text-center">{{msg}}</div>  
+            <button type="submit" class="submit btn btn-lg btn-success btn-block" [disabled]="authForm.invalid">Sign In</button>
+        </form>
+        </div>
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h3>Don't have an account? Please Sign up!</h3>
+                </div>
+                <div class="img__text m--in">
+                    <h3>If you already have an account, just sign in.</h3>
+                </div>
+                <div class="img__btn" (click)="toggleSignUp()">
+                    <span class="m--up">Sign Up</span>
+                    <span class="m--in">Sign In</span>
+                </div>
+            </div>
+            <div class="form sign-up">
+                <form [formGroup]="RegisterForm" (ngSubmit)="onSignUp()" >
+                    <h2>Create your Account</h2>
+                    <label>
+                        <span>Name</span>
+                        <input type="text" id="signUpName" formControlName="signUpName" />
+                    </label>
+                    <label>
+                        <span>Email</span>
+                        <input type="email" id="signUpEmail" formControlName="signUpEmail" />
+                    </label>
+                    <label>
+                        <span>Password</span>
+                        <input type="password" id="signUpPassword" formControlName="signUpPassword" />
+                    </label>
+                    <button type="submit" class="submit  btn btn-lg btn-success btn-block" [disabled]="RegisterForm.invalid" >Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
