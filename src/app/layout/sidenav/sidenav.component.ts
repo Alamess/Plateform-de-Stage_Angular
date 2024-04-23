@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,EventEmitter,Output, OnInit } from '@angular/core';
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -17,13 +17,14 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 })
 export class SidebarComponent implements OnInit {
-
+  @Output() dataSent = new EventEmitter<Array<String>>();
 
   isSidebarVisible = true;
   isSubmenuOpen = false;
   PFEselected = false;
   ETEselected = false ;
-
+  specialite ="" ;
+  duree ="";
   constructor(private sidebarService: SidebarService) {}
 
   ngOnInit() {
@@ -52,4 +53,24 @@ export class SidebarComponent implements OnInit {
     this.PFEselected = false;
     this.ETEselected = true ;
   }
+  submit(){
+    if(this.PFEselected){
+      this.dataSent.emit(['PFE',this.specialite,this.duree]);
+    }
+    else if(this.ETEselected){
+      this.dataSent.emit(['ETE',this.specialite,this.duree]);
+    }
+    else{
+      this.dataSent.emit([this.specialite,this.duree]);
+    }
+  }
+  setSpecialite(event: any): void {
+    this.specialite = event.target.value; 
+    console.log('Spécialité mise à jour :', this.specialite); 
+  }
+  setDuree(event:any): void {
+    this.duree = event.target.value; 
+    console.log('Duree mise à jour :', this.duree); 
+  }
+
 }

@@ -2,7 +2,7 @@
     <app-header></app-header>
   </div>
   <div class="container">
-    <app-sidenav></app-sidenav>
+    <app-sidenav (dataSent)="receiveData($event)"></app-sidenav>
   </div>
 <div class="content" [ngClass]="isSidebarVisible ? 'with-sidebar' : 'without-sidebar'">
 <div class="fanta">

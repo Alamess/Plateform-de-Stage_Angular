@@ -17,17 +17,19 @@
       <li>
         <input type="text"
         id="specialite"
-        placeholder="specialite"
+        placeholder="Competence"
+        (change)="setSpecialite($event)"
         >
       </li>
       <li>
         <input type="text"
         id="duree"
         placeholder="duree"
+        (change)="setDuree($event)"
         >
       </li>
       <li>
-        <button >Filtrer</button>
+        <button (click)="submit()">Filtrer</button>
       </li>
       
     </ul>
