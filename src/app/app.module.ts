@@ -28,6 +28,7 @@ import { TimetableComponent } from './pages/timetable/timetable.component';
 import { CardComponent } from './card/card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { ModelComponent } from './layout/model/model.component';
 // Import FormsModule
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SignInComponent } from './pages/sign-in/sign-in.component';
     TimetableComponent,
     CardComponent,
     SignInComponent,
+    ModelComponent,
   ],
   imports: [
     BrowserModule,

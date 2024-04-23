@@ -6,7 +6,7 @@
   <div class="content" [ngClass]="isSidebarVisible ? 'with-sidebar' : 'without-sidebar'">
   <div class="fanta">
   <div  *ngFor="let stage of Stages" >
-      <app-card [info]="{id: stage.id, nom: stage.nom, title: stage.titre,img: stage.img,expired:stage.expiration}"></app-card>
+      <app-card [info]="{id: stage.id, nom: stage.nom, title: stage.titre,img: stage.img,expired:stage.expiration,Competence:stage.necessarity,Duree:stage.duree,Description:stage.description}"(actionParent)="actionRealisee()"></app-card>
   </div>
   </div>
   </div>

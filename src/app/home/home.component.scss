@@ -77,6 +77,49 @@
   }
   
   /* Additional styling to make it visually appealing */
+  .info-item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px; /* mb-6 */
+    gap: 10px;
+  }
+  
+  .info-label {
+    color: white;
+    font-weight: bold;
+  }
+  
+  .info-content {
+    color: white;
+  }
+  .btn {
+    background-color: #333;
+    padding: 2%;
+    color: white;
+    font-weight: bold;
+    border-radius: 1%;
+
+    
+  }
+  .btn2 {
+    background-color: #5a9858;
+    padding: 2%;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    
+    
+  }
+  .btn3{
+    background-color: #0b040437;
+    padding: 2%;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-left: 40%;
+
+  }
   
   
   

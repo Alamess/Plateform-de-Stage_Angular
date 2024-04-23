@@ -7,7 +7,28 @@
 <div class="content" [ngClass]="isSidebarVisible ? 'with-sidebar' : 'without-sidebar'">
 <div class="fanta">
 <div  *ngFor="let stage of Stages" >
-    <app-card [info]="{id: stage.id, nom: stage.nom, title: stage.titre,img: stage.img,expired:stage.expiration}"></app-card>
+    <app-card [info]="{id: stage.id, nom: stage.nom, title: stage.titre,img: stage.img,expired:stage.expiration,Competence:stage.necessarity,Duree:stage.duree,Description:stage.description}" (actionParent2)="actionRealisee($event)"></app-card>    
 </div>
+<app-model [isVisible]="showModal" [title]="corr.nom" (onClose)="quitter()">
+  <div class="info-item">
+    <p class="info-label">Titre: </p>
+    <p class="info-content"> {{ corr.title }}</p>
+  </div>
+  <div class="info-item">
+    <p class="info-label">Description: </p>
+    <p class="info-content"> {{ corr.Description }}</p>
+  </div>
+  <div class="info-item">
+    <p class="info-label">Duree: </p>
+    <p class="info-content">{{ corr.Duree }}</p>
+  </div>
+  <div class="info-item">
+    <p class="info-label">Competence: </p>
+    <p class="info-content"> {{ corr.Competence }}</p>
+  </div>
+  <button [ngClass]="ispicked ? 'btn2':'btn'" (click)="fileInput.click()">{{ text }}</button>
+  <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" accept="application/pdf">
+  <button class="btn3" (click)="quitter()" [disabled]="!ispicked">Postuler</button>
+</app-model>
 </div>
 </div>

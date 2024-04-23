@@ -1,0 +1,13 @@
+<div *ngIf="isVisible" class="modal-overlay" id="wrapper" (click)="handleClose($event)">
+    <div class='modal-content' (click)="$event.stopPropagation()">
+      <div class='modal-header'>
+        <h2 class='modal-title'>{{ title }}</h2>
+        <div class='close-div' (click)="onClose.emit()">
+          <span class="icon">X</span>
+        </div>
+      </div>
+      <div class='modal-body'>
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
