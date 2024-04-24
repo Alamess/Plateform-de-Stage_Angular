@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/authService/login.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent {
   isSignUp = false; 
+  authService =inject(AuthService);
+
   msg:any;
   authForm: any;
   RegisterForm : any ;
@@ -30,8 +33,34 @@ export class SignInComponent {
   }
   onSignIn(){
     console.log("fanta");
+    this.authService.loginService(this.authForm.value)
+    .subscribe({
+      next:(res)=>{
+        alert("Login is Successful !");
+        this.authForm.reset();
+        this.router.navigate(['profile']);
+
+      },
+      error:(err)=>{
+      console.log(err);
+      }
+    })
   }
   onSignUp(){
     console.log("boobs");
+  }
+  signIn(){
+    this.authService.loginService(this.authForm.value)
+    .subscribe({
+      next:(res)=>{
+        alert("Login is Successful !");
+        this.authForm.reset();
+        this.router.navigate(['profile']);
+
+      },
+      error:(err)=>{
+      console.log(err);
+      }
+    })
   }
 }
