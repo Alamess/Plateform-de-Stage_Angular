@@ -22,6 +22,7 @@ export class AuthService {
       this.d.splice(index, 1);
     }
   }
+  
   private baseUrl = 'http://localhost:8083'
 
   constructor( private http:HttpClient) { }
@@ -47,8 +48,61 @@ export class AuthService {
         this.token=response.jwt ;
       })
   )}
-  register(userData:any):Observable<any>{
-    return this.http.post<any>(`${this.baseUrl}/User/SignUp`,userData)
+  register( registervalue:any,ETD:boolean):Observable<any>{
+    
+    if (ETD){
+      console.log("signupEtudiant a khouna")
+      const Role="ETD"
+      /*let m:Map<string,string>= new Map<string, string>();
+      m.set("Nom",registervalue.Nom);
+      m.set("Prenom",registervalue.Prenom);*/
+      const q={
+        "Nom":registervalue.Nom,
+        "Prenom":registervalue.Prenom,
+        "Mdp":registervalue.Mdp,
+        "Email":registervalue.email,
+        "Type":registervalue.Type,
+        "Role":"ETD","Filiere":registervalue.Filiere
+      }
+      /*m.set("Mdp",registervalue.Mdp);
+      m.set("Email",registervalue.email);
+      m.set("Type",registervalue.Type);
+      m.set("Role","ETD");*/
+      console.log(q);
+      return this.http.post<any>(`${this.baseUrl}/User/SignUp`,q).pipe(
+        catchError((error) => {
+          console.error('SignUp error:', error);
+          return throwError(error);
+        }),tap((response: any) => {
+          console.log(response.token);
+        }));
+
+    }
+    const x="SOC"
+    console.log("signupSocieté a khouna")
+    const q={
+      "Nom":registervalue.Nom,
+      "Prenom":registervalue.Prenom,
+      "Mdp":registervalue.Mdp,
+      "Email":registervalue.email,
+      "Emplacement":registervalue.Type,
+      "Role":"Role","NomSociete":registervalue.Filiere
+    }
+    /*m.set("Mdp",registervalue.Mdp);
+    m.set("Email",registervalue.email);
+    m.set("Type",registervalue.Type);
+    m.set("Role","ETD");*/
+    console.log(q);
+    return this.http.post<any>(`${this.baseUrl}/User/SignUp`,q).pipe(
+      catchError((error) => {
+        console.error('SignUp error:', error);
+        return throwError(error);
+      }),tap((response: any) => {
+        console.log(response.token);
+      }));
+
+
+
   }
 
   logout(){

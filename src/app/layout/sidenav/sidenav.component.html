@@ -18,19 +18,25 @@
         <input type="text"
         id="specialite"
         placeholder="Competence"
-        (change)="setSpecialite($event)"
+        (change)="setSpecialite($event)"[(ngModel)]="specialite"class="inputs"
         >
       </li>
       <li>
         <input type="text"
         id="duree"
         placeholder="Gouvernat"
-        (change)="setDuree($event)"
+        (change)="setDuree($event)"[(ngModel)]="duree"class="inputs"
         >
       </li>
       <li>
-        <button (click)="submit()">Filtrer</button>
-      </li>
+        <div style="display: flex; justify-content: center;">
+          <button style="display: flex; margin: 4px 2px; text-align: center; align-items: center;  background-color: #dadadd; color: rgb(29, 32, 35);" (click)="viderChamps()" >Effacer</button>
+
+          <button style="display: flex; margin: 4px 2px; text-align: center; align-items: center; background-color: #448ac3; color: #ffffff;" (click)="submit()" >Filtrer</button>
+        
+        
+        </div>
+            </li>
       
     </ul>
   </div>

@@ -26,7 +26,11 @@ export class SidebarComponent implements OnInit {
   specialite ="" ;
   duree ="";
   constructor(private sidebarService: SidebarService) {}
-
+  viderChamps(): void {
+    // Récupérer les éléments d'entrée par leur ID et vider leurs valeurs
+    this.specialite = '';
+    this.duree= '';
+  }
   ngOnInit() {
     this.sidebarService.sidebarVisibility$.subscribe((isVisible) => {
       console.log(isVisible)
