@@ -1,21 +1,12 @@
-<ngx-spinner
-  bdColor="rgba(51,51,51,0.8)"
-  size="medium"
-  color="#fff"
-  type="ball-scale-multiple"
->
-  <p style="font-size: 20px; color: white">Loading...</p>
-</ngx-spinner>
 <div class="app-header" >
     <app-header></app-header>
   </div>
   <div class="container">
-    <app-sidenav (dataSent)="receiveData($event)"></app-sidenav>
   </div>
 <div class="content" [ngClass]="isSidebarVisible ? 'with-sidebar' : 'without-sidebar'">
 <div class="fanta">
 <div  *ngFor="let stage of Stages" >
-    <app-card [info]="{id: stage.id, nom: stage.nom, title: stage.titre,img: stage.img,expired:stage.expiration,Competence:stage.necessarity,Duree:stage.duree,Description:stage.description}" (actionParent2)="actionRealisee($event)"></app-card>    
+    <app-card [info]="{id: stage.id, nom: stage.nom, title: stage.titre,img: stage.img,expired:stage.expiration,Competence:stage.necessarity,Duree:stage.duree,Description:stage.description}"(actionParent)="actionRealisee()" (actionParent2)="actionRealise($event)"></app-card>
 </div>
 <app-model [isVisible]="showModal" [title]="corr.nom" (onClose)="quitter()">
   <div class="info-item">
@@ -36,7 +27,7 @@
   </div>
   <button [ngClass]="ispicked ? 'btn2':'btn'" (click)="fileInput.click()">{{ text }}</button>
   <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" accept="application/pdf">
-  <button class="btn3" (click)="sendEmail()" [disabled]="!ispicked">Postuler</button>
+  <button class="btn3" (click)="quitter()" [disabled]="!ispicked">Postuler</button>
 </app-model>
 </div>
 </div>

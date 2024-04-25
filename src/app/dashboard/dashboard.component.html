@@ -1,12 +1,75 @@
-<div class="app-header" >
-      <app-header></app-header>
-    </div>
-    <div class="container">
-    </div>
-  <div class="content" [ngClass]="isSidebarVisible ? 'with-sidebar' : 'without-sidebar'">
-  <div class="fanta">
-  <div  *ngFor="let stage of Stages" >
-      <app-card [info]="{id: stage.id, nom: stage.nom, title: stage.titre,img: stage.img,expired:stage.expiration,Competence:stage.necessarity,Duree:stage.duree,Description:stage.description}"(actionParent)="actionRealisee()"></app-card>
+<div class="bg-gray-100 dark:bg-gray-900 dark:text-white text-gray-600 h-screen flex overflow-hidden text-sm">
+  <div class="bg-white dark:bg-gray-900 dark:border-gray-800 w-20 flex-shrink-0 border-r border-gray-200 flex-col hidden sm:flex">
+      <!-- Dynamic SVG Icon -->
+      <div class="h-16 text-blue-500 flex items-center justify-center">
+          <svg *ngFor="let icon of icons" [attr.viewBox]="icon.viewBox" class="w-9" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <path [attr.d]="icon.path" fill="currentColor"></path>
+          </svg>
+      </div>
+      <!-- Dynamic Buttons -->
+      <div *ngFor="let button of navButtons" class="flex mx-auto flex-grow mt-4 flex-col text-gray-400 space-y-4">
+          <button [ngClass]="button.class" class="h-10 w-12 dark:text-gray-500 rounded-md flex items-center justify-center">
+              <svg [attr.viewBox]="button.svgViewBox" class="h-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path [attr.d]="button.svgPath"></path>
+              </svg>
+          </button>
+      </div>
   </div>
+  <div class="flex-grow overflow-hidden h-full flex flex-col">
+      <!-- Top bar dynamic buttons -->
+      <div class="h-16 lg:flex w-full border-b border-gray-200 dark:border-gray-800 hidden px-10">
+          <div class="ml-auto flex items-center space-x-7">
+              <button *ngFor="let topButton of topButtons" class="h-8 px-3 rounded-md shadow text-white bg-blue-500">{{topButton.label}}</button>
+          </div>
+      </div>
+      <!-- Sidebar with search and user list -->
+      <div class="xl:w-72 w-48 flex-shrink-0 border-r border-gray-200 dark:border-gray-800 h-full overflow-y-auto lg:block hidden p-5">
+          <input type="text" class="pl-8 h-9 bg-transparent border border-gray-300 dark:border-gray-700 dark:text-white w-full rounded-md text-sm" placeholder="Search" />
+          <!-- User cards generated dynamically -->
+          <div *ngFor="let user of users" class="bg-white p-3 w-full flex flex-col rounded-md dark:bg-gray-800 shadow">
+              <div class="flex xl:flex-row flex-col items-center font-medium text-gray-900 dark:text-white pb-2 mb-2 xl:border-b border-gray-200 border-opacity-75 dark:border-gray-700 w-full">
+                  <img [src]="user.image" class="w-7 h-7 mr-2 rounded-full" alt="profile" />
+                  {{ user.name }}
+              </div>
+              <div class="flex items-center w-full">
+                  <div class="text-xs py-1 px-2 leading-none dark:bg-gray-900 bg-blue-100 text-blue-500 rounded-md">{{ user.department }}</div>
+                  <div class="ml-auto text-xs text-gray-500">${{ user.salary }}</div>
+              </div>
+          </div>
+      </div>
+      <!-- Main content area -->
+      <div class="flex-grow bg-white dark:bg-gray-900 overflow-y-auto">
+          <!-- Dynamic tab navigation -->
+          <div *ngFor="let tab of tabs" class="sm:px-7 sm:pt-7 px-4 pt-4 flex flex-col w-full border-b border-gray-200 bg-white dark:bg-gray-900 dark:text-white dark:border-gray-800 sticky top-0">
+              <a href="#" [ngClass]="{'px-3 border-b-2 pb-1.5': true, 'border-blue-500 text-blue-500 dark:text-white dark:border-white': tab.active, 'border-transparent text-gray-600 dark:text-gray-400': !tab.active}">{{ tab.name }}</a>
+          </div>
+          <!-- Table of activities dynamically generated -->
+          <table class="w-full text-left">
+              <thead>
+                  <tr class="text-gray-400">
+                      <th *ngFor="let header of headers" class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">{{ header }}</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let activity of activities">
+                      <td *ngFor="let field of activity.fields" class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
+                          <!-- Conditional content based on field type -->
+                          <ng-container [ngSwitch]="field.type">
+                              <div *ngSwitchCase="'text'">{{ field.value }}</div>
+                              <div *ngSwitchCase="'icon'">
+                                  <svg [attr.viewBox]="field.iconViewBox" class="w-5" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <path [attr.d]="field.iconPath"></path>
+                                  </svg>
+                              </div>
+                              <div *ngSwitchCase="'date'">
+                                  <span class="sm:block hidden">{{ field.value | date:'mediumDate' }}</span>
+                                  <span class="text-xs text-gray-400">{{ field.value | date:'shortTime' }}</span>
+                              </div>
+                          </ng-container>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
   </div>
-  </div>
+</div>

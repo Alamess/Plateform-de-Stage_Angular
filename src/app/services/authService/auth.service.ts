@@ -1,12 +1,19 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  Prenom : any ;
+  nom :any ;
+  fliliere:any;
+  id : any ;
   d: any[] = [];
-  constructor() { }
+  token: any;
   Addfav(id:any){
+    
     this.d.push(id);
   }
   Deletefav(id: any) {
@@ -15,4 +22,38 @@ export class AuthService {
       this.d.splice(index, 1);
     }
   }
+  private baseUrl = 'http://localhost:8083'
+
+  constructor( private http:HttpClient) { }
+
+  authSubject =new BehaviorSubject<any>({
+    user:null
+  })
+ 
+  login(email:any,mdp:any):Observable<any>{
+    return this.http.post<any>(`${this.baseUrl}/auth/Login`,{email,mdp}).pipe(
+      catchError((error) => {
+        console.error('Authentication error:', error);
+        return throwError(error);
+      }),
+     
+      tap((response: any) => {
+        console.log(response.token)
+        this.Prenom = response.prenom; 
+        this.nom=response.nom;
+        this.fliliere=response.filiere;
+        this.d=response.favoris;
+        this.id=response.id ;
+        this.token=response.jwt ;
+      })
+  )}
+  register(userData:any):Observable<any>{
+    return this.http.post<any>(`${this.baseUrl}/User/SignUp`,userData)
+  }
+
+  logout(){
+    localStorage.clear()
+    this.authSubject.next({})
+  }
+
 }

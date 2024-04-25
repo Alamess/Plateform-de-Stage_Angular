@@ -1,20 +1,28 @@
 import { Component,EventEmitter,Input, OnInit, Output } from '@angular/core';
 import { HomeService } from '../services/home.service';
 import { SidebarService } from '../services/sidebar/sidebar.service';
+import { EmailServiceService } from '../services/EmailService/email-service.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from '../services/authService/auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  text : String ="Ajouter un PDF";
+  Prenom = this.SignInUpServiceService.Prenom;
+  Nom=this.SignInUpServiceService.nom ;
+  Id=this.SignInUpServiceService.id;
+  filiere=this.SignInUpServiceService.fliliere;
+  text : String ="Ajouter un CV";
   ispicked : boolean = false ;
    showModal: boolean = false;
    CV:any;
+   body:String="Chère Madame, Cher Monsieur,\n\n   Je m'appelle"+" "+this.Nom+" "+this.Prenom+" et je suis actuellement étudiant en"+" "+ this.filiere+" " +"à Ecole nationale d'ingenieur de carthage. J'ai remarqué avec grand intérêt votre offre de stage 'Plateforme de Hackathon et de challenge d'apprentissage (QA)' publiée sur Stages.\n\n   Je suis vivement intéressé par cette opportunité et je pense que ma formation et mes aspirations correspondent bien à ce que vous recherchez. Je suis convaincu que ce stage serait une excellente occasion d'enrichir mes connaissances et de développer davantage mes compétences.\n\n   De plus, je crois fermement que je peux contribuer à la croissance de votre entreprise grâce à mes compétences et à mon dévouement. Je suis prêt à apporter mon énergie, ma créativité et ma passion pour mon domaine d'études.\n\n   Je joins mon CV à cet email pour votre considération. Je serais ravi de discuter plus en détail de ma candidature lors d'un entretien.\n\n   Je vous remercie de l'attention que vous porterez à ma candidature.\n\n   Cordialement,\n "+this.Nom.toUpperCase()+" "+this.Prenom;
   Stages:any=[];
   corr:any={};
   isSidebarVisible = true;
-  constructor(private home : HomeService,private sidebarService: SidebarService) { }
+  constructor(private spinner: NgxSpinnerService,private Email : EmailServiceService,private home : HomeService,private sidebarService: SidebarService,private SignInUpServiceService : AuthService) { }
   actionRealisee(data:any){
     this.showModal=true;
     this.corr=data;
@@ -27,6 +35,25 @@ export class HomeComponent implements OnInit {
       console.error(error);
     });
   }
+  sendEmail(){
+    this.spinner.show();
+    this.Email.sendmail(this.CV,"ala.messaoud@enicar.ucar.tn","fama",this.body)
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.spinner.hide()
+          this.showModal=false ;
+          this.ispicked =false ;
+          alert(res);
+          this.text="Ajouter un CV";
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  
+  }
+  
   ngOnInit(): void {
     this.sidebarService.sidebarVisibility$.subscribe((isVisible) => {
       console.log(isVisible)
@@ -38,13 +65,17 @@ export class HomeComponent implements OnInit {
     const file: File = event.target.files[0];
     if (file) {
       this.ispicked=true ;
-      console.log('Fichier sélectionné:', file);
-      this.text="changer le PDF";
+      this.CV=file ;
+      this.text="changer le CV";
+      event.target.files.shift;
+      console.log('Fichier sélectionné:', this.CV);
+      
     }
   }
   quitter(){
     this.showModal = false ;
     this.ispicked =false ;
+    this.text="Ajouter un CV";
   }
   receiveData(data: Array<String>) {
     if(data[0]=="ETE"){

@@ -29,6 +29,8 @@ import { CardComponent } from './card/card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { ModelComponent } from './layout/model/model.component';
+import { NgxSpinner, NgxSpinnerModule } from 'ngx-spinner';
+import { FavorisComponent } from './favoris/favoris.component';
 // Import FormsModule
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { ModelComponent } from './layout/model/model.component';
     CardComponent,
     SignInComponent,
     ModelComponent,
+    FavorisComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,8 @@ import { ModelComponent } from './layout/model/model.component';
     FormsModule,
     MatTableModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

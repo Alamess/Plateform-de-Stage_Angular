@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/authService/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent {
   isSignUp = false; 
+  SignInUpServiceService =inject(AuthService);
+
   msg:any;
   authForm: any;
   RegisterForm : any ;
@@ -29,9 +32,36 @@ export class SignInComponent {
     this.isSignUp = !this.isSignUp;
   }
   onSignIn(){
+    const formvalue=this.authForm.value;
     console.log("fanta");
-  }
+    this.SignInUpServiceService.login(formvalue.signInEmail,formvalue.signInPassword)
+    .subscribe(
+      (res)=>{
+        localStorage.setItem("jwt",res.jwt)
+        alert("Login is Successful !");
+        this.router.navigate(['home'])},
+        (error: any) => {
+          // Handle error response
+          console.error('Error fetching data:', error);
+        }
+      
+      );
+    }
+
+    
+  
+  
   onSignUp(){
     console.log("boobs");
+    const registervalue =this.RegisterForm.value;
+    this.SignInUpServiceService.register(registervalue.signUpName)
+    .subscribe(
+      (res)=>{
+        localStorage.setItem("jwt",res.jwt)
+        alert("Register is Successful !");
+      }
+      );
   }
+
+  
 }

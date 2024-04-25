@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from 'src/app/services/authService/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,12 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
+  SignInUpServiceService =inject(AuthService) ;
   isSidebarVisible = false;
-  address = '123 Main St, City, Country';
+  Prenom = this.SignInUpServiceService.Prenom;
+  Nom=this.SignInUpServiceService.nom ;
+  Id=this.SignInUpServiceService.id;
+  filiere=this.SignInUpServiceService.fliliere;
   isEditMode = false;
+  
   editAddress() {
 
-    this.address = 'New Address, City, Country';
+    this.Prenom = 'New Address, City, Country';
   }
 
 
