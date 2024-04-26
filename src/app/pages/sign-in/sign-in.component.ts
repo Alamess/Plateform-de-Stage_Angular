@@ -31,22 +31,24 @@ export class SignInComponent {
   toggleSignUp() {
     this.isSignUp = !this.isSignUp;
   }
-  onSignIn(){
-    const formvalue=this.authForm.value;
+  onSignIn() {
+    const formValue = this.authForm.value;
     console.log("fanta");
-    this.SignInUpServiceService.login(formvalue.signInEmail,formvalue.signInPassword)
-    .subscribe(
-      (res)=>{
-        localStorage.setItem("jwt",res.jwt)
-        alert("Login is Successful !");
-        this.router.navigate(['home'])},
+    this.SignInUpServiceService.login(formValue.signInEmail, formValue.signInPassword)
+      .subscribe(
+        (res) => {
+          localStorage.setItem("jwt", res.jwt);
+          if (!res.role) {
+            this.router.navigate(['home']);
+          } else {
+            this.router.navigate(['dashboard']);
+          }
+        },
         (error: any) => {
-          // Handle error response
-          console.error('Error fetching data:', error);
+          console.error('Error logging in:', error);
         }
-      
       );
-    }
+}
 
     
   

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError,throwError } from 'rxjs';
+import { Observable, catchError,throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,8 @@ export class HomeService {
       return throwError(error);
     }));
   
+  }
+  deleteItem(id: number): Observable<any> {
+    return this.httpClient.delete(`http://localhost:8083/stages/${id}`);
   }
 }

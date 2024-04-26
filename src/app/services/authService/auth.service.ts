@@ -55,5 +55,14 @@ export class AuthService {
     localStorage.clear()
     this.authSubject.next({})
   }
+  getall(){
+    return this.http.get<any>(`${this.baseUrl}/users`)
+  }
+  deleteItem1(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:8083/etudiants/${id}`);
+  }
+  deleteItem2(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:8083/societes/${id}`);
+  }
 
 }

@@ -31,6 +31,7 @@ import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { ModelComponent } from './layout/model/model.component';
 import { NgxSpinner, NgxSpinnerModule } from 'ngx-spinner';
 import { FavorisComponent } from './favoris/favoris.component';
+import { UsersComponent } from './users/users.component';
 // Import FormsModule
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FavorisComponent } from './favoris/favoris.component';
     SignInComponent,
     ModelComponent,
     FavorisComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
