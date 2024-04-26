@@ -21,6 +21,6 @@
 
 <button mat-button routerLink="/profile" routerLinkActive="active" class="neumorphic-button" style="margin: 0; padding: 0;">Profile</button>
 <button mat-button routerLink="/home" routerLinkActive="active" class="neumorphic-button" style="margin: 0; padding: 0;">Home</button>
-<button mat-icon-button class="notification-icon" routerLink="/dashboard" routerLinkActive="active" aria-label="Notification icon button custom" style="margin-bottom: 10px;"><mat-icon>lock_open</mat-icon></button>
+<button mat-icon-button class="notification-icon" (click)="logout()" routerLinkActive="active" aria-label="Notification icon button custom" style="margin-bottom: 10px;"><mat-icon>lock_open</mat-icon></button>
 
 </mat-toolbar>

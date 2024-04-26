@@ -7,12 +7,12 @@
         </div>
         <div class="flex mx-auto flex-grow mt-4 flex-col text-gray-400 space-y-4">
             <button class="h-10 w-12 dark:text-gray-500 rounded-md flex items-center justify-center">
-                <svg viewBox="0 0 24 24" class="h-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" class="h-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" routerLink="/dashboard">
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
             </button>
-            <button class="h-10 w-12 dark:bg-gray-700 dark:text-white rounded-md flex items-center justify-center " routerLink="/Users">
+            <button class="h-10 w-12 dark:bg-gray-700 dark:text-white rounded-md flex items-center justify-center " routerLink="/users">
                 <svg viewBox="0 0 24 24" class="h-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
@@ -29,8 +29,6 @@
                         <span class="absolute right-0 -mb-0.5 bottom-0 w-2 h-2 rounded-full bg-green-500 border border-white dark:border-gray-900"></span>
                     </span>
                     <span class="ml-2">Faouzi</span>
-                    <button mat-icon-button class="notification-icon" (click)="logout()" routerLinkActive="active" aria-label="Notification icon button custom" style="margin-bottom: 10px;"><mat-icon>lock_open</mat-icon></button>
-
                     <svg viewBox="0 0 24 24" class="w-4 ml-1 flex-shrink-0" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
@@ -42,12 +40,12 @@
   <div class="sm:px-7 sm:pt-7 px-4 pt-4 flex flex-col w-full border-b border-gray-200 bg-white dark:bg-gray-900 dark:text-white dark:border-gray-800 sticky top-0">
                 <div class="flex w-full items-center">
                   <div class="flex items-center text-3xl text-gray-900 dark:text-white">
-                    <img src="../../assets/stage_1.jpg" class="w-12 mr-4 rounded-full" alt="profile" />
-                    Stages
+                    <img src="../../assets/user-icon-vector.jpg" class="w-12 mr-4 rounded-full" alt="profile" />
+                    Users
                   </div>
                   <div class="ml-auto sm:flex hidden items-center justify-end">
                     <div class="text-right">
-                      <div class="text-xs text-gray-400 dark:text-gray-400">Ajouter Stage</div>
+        
                     </div>
                     <button class="w-8 h-8 ml-4 text-gray-400 shadow dark:text-gray-400 rounded-full flex items-center justify-center border border-gray-200 dark:border-gray-700">
                       <svg viewBox="0 0 24 24" class="w-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -64,36 +62,70 @@
                   <thead>
                     <tr class="text-gray-400" >
                       <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">Nom</th>
-                      <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">Titre</th>
-                      <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800 hidden md:table-cell">Competences</th>
-                      <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">Expiration</th>
-                      <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800 sm:text-gray-400 text-white">Duree</th>
+                      <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">Email</th>
+                      <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800 hidden md:table-cell">Filiere</th>
+                      <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">Niveau</th>
+                      <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800">Emplacement</th>
+                      <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 dark:border-gray-800 sm:text-gray-400 text-white">Role</th>
                     </tr>
                   </thead>
                   <tbody class="text-gray-600 dark:text-gray-100">
-                    <tr *ngFor="let transaction of transactions">
+                    <tr *ngFor="let transaction of transactions._embedded.societes">
                       <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
                         <div class="flex items-center">
-                          <img [src]="transaction.img" class="w-4 mr-5" alt="icon"> <!-- Assuming icon is an image -->
-                          {{ transaction.nom }}
+                          {{ transaction.nomSociete }}
                         </div>
                       </td>
-                      <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">{{ transaction.titre }}</td>
-                      <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800 md:table-cell hidden">{{ transaction.necessarity }}</td>
-                      <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800   text-red-500 ">
-                        {{ transaction.expiration }}
+                      <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">{{ transaction.email }}</td>
+                      <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800 md:table-cell hidden"></td>
+                      <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800  ">
+                        
+                      </td>
+                      <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800  ">
+                        {{ transaction.emplacement }}
+                      </td>
+                      <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800  ">
+                    
                       </td>
                       <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
                         <div class="flex items-center">
                           <div class="sm:flex hidden flex-col">
-                            <div class="text-gray-400 text-xs">{{ transaction.duree }}</div>
+                            <div class="text-gray-400 text-xs">{{ transaction.role }}</div>
                           </div>
-                          <button class="w-8 h-8 inline-flex items-center justify-center text-gray-400 ml-5" (click)="Supprimer(transaction.id)" >
+                          <button class="w-8 h-8 inline-flex items-center justify-center text-gray-400 ml-5" (click)="SupprimerSoc(transaction.id)" >
                             Supprimer
                           </button>
                         </div>
                       </td>
                     </tr>
+                    <tr *ngFor="let transaction of transactions._embedded.etudiants">
+                        <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
+                          <div class="flex items-center">
+                            {{ transaction.nom }} {{ transaction.prenom }}
+                          </div>
+                        </td>
+                        <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">{{ transaction.email }}</td>
+                        <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800 md:table-cell hidden">{{ transaction.filiere }}</td>
+                        <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800  ">
+                            {{ transaction.type }}
+                        </td>
+                        <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800  ">
+                          
+                        </td>
+                        <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800  ">
+                      
+                        </td>
+                        <td class="sm:p-3 py-2 px-1 border-b border-gray-200 dark:border-gray-800">
+                          <div class="flex items-center">
+                            <div class="sm:flex hidden flex-col">
+                              <div class="text-gray-400 text-xs">{{ transaction.role }}</div>
+                            </div>
+                            <button class="w-8 h-8 inline-flex items-center justify-center text-gray-400 ml-5" (click)="SupprimerEtudiants(transaction.id)" >
+                              Supprimer
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
                   </tbody>
                 </table>
       
