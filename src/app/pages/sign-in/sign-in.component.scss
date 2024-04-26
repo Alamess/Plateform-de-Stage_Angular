@@ -112,7 +112,7 @@ button {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: #145b96;
 }
 
 .cont.s--signup .img:before {
@@ -247,13 +247,15 @@ input {
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     text-align: center;
 }
-
+.encarimg{
+    position: absolute; top: 20px; width: 150px; height: 100px;  left: 50px; z-index: 10;
+}
 
 
 .submit {
     margin-top: 40px;
     margin-bottom: 20px;
-    background: #d4af7a;
+    background: #145b96;
     text-transform: uppercase;
 }
 
@@ -289,4 +291,11 @@ input {
 .cont.s--signup .sign-up {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+}
+.forumRow{
+    display: flex; grid-template-columns: 1fr 1fr; column-gap: 20px;
+}
+.formRowCheckbox{
+    justify-content: center;
+    margin-top: 15px;
 }

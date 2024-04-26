@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { HomeComponent } from '../home/home.component';
 import { HomeService } from '../services/home.service';
+import { AuthService } from '../services/authService/auth.service';
+import { Router } from '@angular/router';
 
 
 
@@ -12,8 +14,12 @@ import { HomeService } from '../services/home.service';
 export class DashboardComponent implements OnInit{
   header=["nom","titre","description","Duree","Expiration","Competence"]
   transactions:any=[];
-  
-  constructor(private home:HomeService){};
+  SignInUpServiceService =inject(AuthService);
+
+  logout() {
+    this.SignInUpServiceService.logout()
+    this.router.navigate(['Sign-in'])}
+  constructor(private home:HomeService,private router: Router){};
   getStages(){
     this.home.getall().subscribe(res=>{console.log(res);
       this.transactions = res;

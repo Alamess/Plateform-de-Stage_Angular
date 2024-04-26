@@ -12,8 +12,8 @@ const routes: Routes = [
 { path: 'home', component: HomeComponent },
 { path: 'favoris', component: FavorisComponent },
 { path: 'dashboard', component: DashboardComponent },
+{ path: 'Users', component: UsersComponent },
 { path: 'profile', component: ProfileComponent },
-{ path: 'Users', component:UsersComponent  },
 { path: '**', redirectTo: '/Sign-in' },
 {path:'',redirectTo:'/home',pathMatch:'full'}
 ];

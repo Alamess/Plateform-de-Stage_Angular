@@ -5,11 +5,11 @@
         <form [formGroup]="authForm" (ngSubmit)="onSignIn()">
             <label>
                 <span>Email</span>
-                <input type="email" id="signInEmail" formControlName="signInEmail" />
+                <input type="email" id="emailLogin" formControlName="email" />
             </label>
             <label>
                 <span>Password</span>
-                <input type="password" id="signInPassword" formControlName="signInPassword" />
+                <input type="password" id="MdpLogin" formControlName="Mdp" />
             </label>
             <div *ngIf="msg" class="text-danger text-center">{{msg}}</div>  
             <button type="submit" class="submit btn btn-lg btn-success btn-block" [disabled]="authForm.invalid">Sign In</button>
@@ -17,11 +17,13 @@
         </div>
         <div class="sub-cont">
             <div class="img">
-                <div class="img__text m--up">
-                    <h3>Don't have an account? Please Sign up!</h3>
+                <img class="encarimg" src="assets/ENICARLOGO.png" alt="ENICARLOGO">
+
+                <div class="img__text m--up"style="margin-top: 130px;">
+                    <h2>Don't have an account? Please Sign up!</h2>
                 </div>
-                <div class="img__text m--in">
-                    <h3>If you already have an account, just sign in.</h3>
+                <div class="img__text m--in"style="margin-top: 130px;">
+                    <h2>If you already have an account, just sign in.</h2>
                 </div>
                 <div class="img__btn" (click)="toggleSignUp()">
                     <span class="m--up">Sign Up</span>
@@ -31,19 +33,86 @@
             <div class="form sign-up">
                 <form [formGroup]="RegisterForm" (ngSubmit)="onSignUp()" >
                     <h2>Create your Account</h2>
-                    <label>
-                        <span>Name</span>
-                        <input type="text" id="signUpName" formControlName="signUpName" />
-                    </label>
-                    <label>
-                        <span>Email</span>
-                        <input type="email" id="signUpEmail" formControlName="signUpEmail" />
-                    </label>
-                    <label>
-                        <span>Password</span>
-                        <input type="password" id="signUpPassword" formControlName="signUpPassword" />
-                    </label>
-                    <button type="submit" class="submit  btn btn-lg btn-success btn-block" [disabled]="RegisterForm.invalid" >Sign Up</button>
+                    <div class="forumRow">
+                        <div>
+                            <label>
+                                <span>Nom</span>
+                                <input type="text" id="Nom" formControlName="Nom"  required />
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <span>Prenom</span>
+                                <input type="text" id="Prenom" formControlName="Prenom" placeholder="" required />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="forumRow"> 
+                        <div>
+                            <label>
+                                <span>Email</span>
+                                <input  type="email" id="email" formControlName="email" placeholder="" required />
+                            </label>
+                        </div>
+                        
+                       <div>
+                        <label>
+                            <span>Password</span>
+                            <input type="password" id="Mdpn" formControlName="Mdp" placeholder="" required />
+                        </label>
+                       </div>
+                       
+                    </div>
+                    <div class="forumRow formRowCheckbox">
+                        <div>
+                            <span>Etudiant</span>
+                            <input #etudiantCheckbox id="Mdp" formControlName="Mdp"  type="checkbox" (click)="toggleFields('etudiant') ;deselectCheckbox('societe')" >
+                        </div>
+                        <div>
+                                <span>Societe</span>
+                                <input #societeCheckbox type="checkbox" (click)="toggleFields('societe') ;deselectCheckbox('etudiant')">
+                        </div>
+                    </div>
+
+<div *ngIf="showEtudiantFields" class="forumRow">
+                        
+                            <div>
+                                <label >
+                                    <span>Filiere</span>
+                                    <input type="text" placeholder="Filiere" formControlName="Filiere" required>
+                                </label>
+                                
+                            </div>
+                            <div>
+                                <label >
+                                    <span>Type</span>
+                                    <input type="text" placeholder="Type" formControlName="Type" required>
+                                </label>
+                                
+                            </div>  
+                    </div>
+                    <div *ngIf="showSocieteFields" class="forumRow">
+                        
+                            <div>
+                                <label >
+                                    <span>NomSociete</span>
+                                    <input type="text" placeholder="NomSociete" formControlName="Filiere" required>
+                                </label>
+                                
+                            </div>
+                            <div>
+                                <label >
+                                    <span>Emplacement</span>
+                                    <input type="text" placeholder="Emplacement" formControlName="Type" required >
+                                </label>
+                                
+                            </div>
+                    </div>    
+
+                    
+                    
+                    
+                    <button type="submit" class="submit  btn btn-lg btn-success btn-block" [disabled]="((showEtudiantFields==showSocieteFields) || RegisterForm.invalid ) " >Sign Up</button>
                 </form>
             </div>
         </div>
